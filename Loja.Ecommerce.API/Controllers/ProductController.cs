@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Loja.Ecommerce.API.Controllers
 {
@@ -18,11 +19,11 @@ namespace Loja.Ecommerce.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(int skip = 0, int limit = 20)
+        public async Task<IActionResult> GetAll(int skip = 0, int limit = 20)
         {
             try
             {
-                var products = _service.GetAll(skip, limit);
+                var products = await _service.GetAll(skip, limit);
 
                 if (!products.Any())
                     return NotFound();
@@ -36,11 +37,11 @@ namespace Loja.Ecommerce.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetProductById")]
-        public IActionResult GetById(string id)
+        public async Task<IActionResult> GetById(string id)
         {
             try
             {
-                var product = _service.GetById(ObjectId.Parse(id));
+                var product = await _service.GetById(ObjectId.Parse(id));
 
                 if (product == null)
                     return NotFound();
@@ -53,12 +54,50 @@ namespace Loja.Ecommerce.API.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult Post([FromBody]ProductModel product)
+        [HttpGet]
+        [Route("ListarPorCategoria/{category}")]
+        public async Task<IActionResult> GetByCategory(string category)
         {
             try
             {
-                _service.Insert(product);
+                var product = await _service.GetByCategory(category);
+
+                if (product == null)
+                    return NotFound();
+
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("BuscarporSku/{sku}")]
+        public async Task<IActionResult> GetBySku(string sku)
+        {
+            try
+            {
+                var product = await _service.GetBySku(sku);
+
+                if (product == null)
+                    return NotFound();
+
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]ProductModel product)
+        {
+            try
+            {
+                await _service.Insert(product);
                 return Created("api/produtos/getproductbyid", product);
             }
             catch (Exception ex)
@@ -68,11 +107,11 @@ namespace Loja.Ecommerce.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] ProductModel product)
+        public async Task<IActionResult> Put([FromBody] ProductModel product)
         {
             try
             {
-                _service.Update(product);
+                await _service.Update(product);
                 return Ok("Atualizado com sucesso!");
             }
             catch (Exception ex)
@@ -82,11 +121,11 @@ namespace Loja.Ecommerce.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
             try
             {
-                _service.Delete(ObjectId.Parse(id));
+               await _service.Delete(ObjectId.Parse(id));
                 return Ok("Apagado com sucesso!");
             }
             catch (Exception ex)

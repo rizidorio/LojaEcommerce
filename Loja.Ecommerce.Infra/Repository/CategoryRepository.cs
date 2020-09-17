@@ -4,6 +4,7 @@ using Loja.Ecommerce.Infra.Context;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Loja.Ecommerce.Infra.Repository
 {
@@ -16,34 +17,40 @@ namespace Loja.Ecommerce.Infra.Repository
             _context = context;
         }
 
-        public IEnumerable<Category> GetAll(int skip = 0, int limit = 10)
+        public async Task<Category> Insert(Category category)
         {
-            return _context.Category.Find(c => true).Skip(skip).Limit(limit).ToList();
+            await _context.Category.InsertOneAsync(category);
+            return category;
         }
 
-        public Category GetById(ObjectId id)
+        public async Task Update(Category category)
         {
-            return _context.Category.Find(c => c.Id.Equals(id)).FirstOrDefault();
+            await _context.Category.ReplaceOneAsync(c => c.Id.Equals(category.Id), category);  
         }
 
-        public bool HasExists(string name)
+        public async Task Delete(ObjectId id)
         {
-            return _context.Category.Find(c => c.Name.Equals(name)).Any();
+           await _context.Category.DeleteOneAsync(c => c.Id.Equals(id));
         }
 
-        public void Save(Category category)
+        public async Task<IEnumerable<Category>> GetAll(int skip, int limit)
         {
-            _context.Category.InsertOne(category);
+            return await _context.Category.Find(c => true).Skip(skip).Limit(limit).ToListAsync();
         }
 
-        public void Update(Category category)
+        public async Task<Category> GetById(ObjectId id)
         {
-            _context.Category.ReplaceOne(c => c.Id.Equals(category.Id), category);
+            return await _context.Category.Find(c => c.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
-        public void Delete(ObjectId id)
+        public async Task<Category> GetByName(string name)
         {
-            _context.Category.DeleteOne(c => c.Id.Equals(id));
+            return await _context.Category.Find(c => c.Name.Equals(name)).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> HasExists(string name)
+        {
+            return await _context.Category.Find(c => c.Name.Equals(name)).AnyAsync();
         }
     }
 }

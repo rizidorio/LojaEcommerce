@@ -10,15 +10,15 @@ namespace Loja.Ecommerce.Services.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [Required(ErrorMessage = "SKU é obrigatório.")]
+        [BsonRequired]
         public string SKU { get; set; }
-        
-        [Required(ErrorMessage = "Nome é obrigatório.")]
+
+        [BsonRequired]
         public string Name { get; set; }
         
         public string Description { get; set; }
         
-        [Required(ErrorMessage = "Marca é obrigatório.")]
+        [BsonRequired]
         public string Brand { get; set; }
         
         public string ImageUrl { get; set; }
@@ -26,7 +26,7 @@ namespace Loja.Ecommerce.Services.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Category { get; set; }
         
-        [Required(ErrorMessage = "Preço é obrigatório.")]
+        [BsonRequired]
         public decimal Price { get; set; }
         
     }
