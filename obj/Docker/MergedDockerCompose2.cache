@@ -1,0 +1,11 @@
+services:
+  loja.ecommerce.api:
+    build:
+      context: C:\projetos\Mundipagg\projeto.loja.ecommerce
+      dockerfile: Loja.Ecommerce.API/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: lojaecommerceapi
+    ports:
+    - 80/tcp
+version: '3.4'

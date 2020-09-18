@@ -1,7 +1,5 @@
 ﻿using Loja.Ecommerce.Domain.Entities;
-using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
-using System.IO;
 
 namespace Loja.Ecommerce.Infra.Context
 {
@@ -9,7 +7,7 @@ namespace Loja.Ecommerce.Infra.Context
     {
         private readonly MongoClient client;
         private readonly IMongoDatabase db;
-        public IConfigurationRoot Configuration { get; }
+        //public IConfigurationRoot Configuration { get; }
 
         public ContextMongo()
         {

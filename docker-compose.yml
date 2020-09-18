@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+   loja.ecommerce.api:
+    image: ${DOCKER_REGISTRY-}lojaecommerceapi
+    build:
+      context: .
+      dockerfile: Loja.Ecommerce.API/Dockerfile

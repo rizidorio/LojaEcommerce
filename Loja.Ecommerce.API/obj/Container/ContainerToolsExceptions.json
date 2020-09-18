@@ -1,0 +1,1 @@
+[{"ContainerToolsException.Message":"O host de servidor do Docker está configurado para 'Linux', no entanto, o projeto está destinado a 'Windows'.","ContainerToolsException.ErrorCode":"CTC1005","ContainerToolsException.StackTrace":"","ContainerToolsException.HResult":"-2146233088"}]
