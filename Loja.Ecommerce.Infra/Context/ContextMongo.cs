@@ -1,4 +1,5 @@
 ﻿using Loja.Ecommerce.Domain.Entities;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
 namespace Loja.Ecommerce.Infra.Context
@@ -9,10 +10,10 @@ namespace Loja.Ecommerce.Infra.Context
         private readonly IMongoDatabase db;
         //public IConfigurationRoot Configuration { get; }
 
-        public ContextMongo()
+        public ContextMongo(IConfiguration configuration)
         {
-            //Configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
-            client = new MongoClient("mongodb://localhost:27017");
+            var conn = configuration.GetSection("MongoDb:ConnectionString").Value;
+            client = new MongoClient(conn);
             db = client.GetDatabase("LojaDB");
         }
 
