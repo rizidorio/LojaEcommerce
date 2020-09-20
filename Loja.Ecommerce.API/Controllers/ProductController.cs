@@ -32,7 +32,7 @@ namespace Loja.Ecommerce.API.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetProductById")]
+        [HttpGet("{id}", Name = "BuscarProdutoById")]
         public async Task<IActionResult> GetById(string id)
         {
             try
@@ -80,7 +80,7 @@ namespace Loja.Ecommerce.API.Controllers
         }
 
         [HttpGet]
-        [Route("BuscarPorNome/{name}")]
+        [Route("ListarPorNome/{name}")]
         public async Task<IActionResult> GetByName(string name)
         {
             try
@@ -101,7 +101,7 @@ namespace Loja.Ecommerce.API.Controllers
             try
             {
                 await _service.Insert(product);
-                return Created("api/produtos/getproductbyid", product);
+                return Created("api/produtos/buscarprodutobyid", product);
             }
             catch (Exception ex)
             {
