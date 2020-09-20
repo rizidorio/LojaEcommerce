@@ -19,6 +19,52 @@ namespace Loja.Ecommerce.Services.Services
             _categoryRepository = categoryRepository;
         }
 
+        public async Task Insert(CategoryModel category)
+        {
+            if (await _categoryRepository.HasExists(category.Name.ToUpper()))
+                throw new Exception("Categoria já cadastrada.");
+
+            var cat = new Category
+            {
+                Name = category.Name.ToUpper()
+            };
+
+            if (string.IsNullOrEmpty(cat.Name))
+                throw new Exception("Nome não pode ser em branco.");
+
+            await _categoryRepository.Insert(cat);
+        }
+
+        public async Task Update(CategoryModel category)
+        {
+            var convertedId = ObjectId.Parse(category.Id);
+
+            var queriedCategory = await _categoryRepository.GetById(convertedId);
+
+            if (queriedCategory == null)
+                throw new Exception("Categoria não encontrada.");
+
+            var cat = new Category
+            {
+                Id = convertedId,
+                Name = category.Name.ToUpper()
+            };
+
+            if (string.IsNullOrEmpty(cat.Name))
+                throw new Exception("Nome não pode ser em branco.");
+
+            await _categoryRepository.Update(cat);
+        }
+
+        public async Task Delete(ObjectId id)
+        {
+            if (id == null)
+                throw new Exception("O Id não pode ser em branco.");
+
+            await _categoryRepository.Delete(id);
+        }
+
+
         public async Task<IEnumerable<CategoryModel>> GetAll(int skip = 0, int limit = 10)
         {
             var result =  await _categoryRepository.GetAll(skip, limit);
@@ -57,7 +103,7 @@ namespace Loja.Ecommerce.Services.Services
             var cat = await _categoryRepository.GetByName(name.ToUpper());
 
             if (cat == null)
-                throw new Exception("Categoria não encontrada");
+                throw new Exception("Categoria não encontrada.");
 
             return new CategoryModel
             {
@@ -65,52 +111,5 @@ namespace Loja.Ecommerce.Services.Services
                 Name = cat.Name
             };
         }
-
-        public async Task Insert(CategoryModel category)
-        {
-            if(await _categoryRepository.HasExists(category.Name.ToUpper()))
-                throw new Exception("Categoria já cadastrada.");
-
-            var cat = new Category
-            {
-                Name = category.Name.ToUpper()
-            };
-
-            if(string.IsNullOrEmpty(cat.Name))
-                throw new Exception("Nome não pode ser em branco.");
-
-            await _categoryRepository.Insert(cat);   
-        }
-
-        public async Task Update(CategoryModel category)
-        {
-            var convertedId = ObjectId.Parse(category.Id);
-
-            var queriedCategory = await _categoryRepository.GetById(convertedId);
-
-            if(queriedCategory == null)
-                throw new Exception("Categoria não encontrada.");
-
-            var cat = new Category
-            {
-                Id = convertedId,
-                Name = category.Name.ToUpper()
-            };
-
-            if (string.IsNullOrEmpty(cat.Name))
-                throw new Exception("Nome não pode ser em branco.");
-
-            await _categoryRepository.Update(cat);
-        }
-
-        public async Task Delete(ObjectId id)
-        {
-            if (id == null)
-                throw new Exception("O Id não pode ser em branco.");
-
-            await _categoryRepository.Delete(id);
-        }
-
-       
     }
 }

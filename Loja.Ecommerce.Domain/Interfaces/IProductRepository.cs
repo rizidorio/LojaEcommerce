@@ -11,6 +11,7 @@ namespace Loja.Ecommerce.Domain.Interfaces
         Task Update(Product product);
         Task Delete(ObjectId id);
         Task<IEnumerable<Product>> GetAll(int skip = 0, int limit = 20);
+        Task<IEnumerable<Product>> GetByName(string name, int skip = 0, int limit = 0);
         Task<IEnumerable<Product>> GetByCategory(string category, int skip = 0, int limit = 20);
         Task<Product> GetById(ObjectId id);
         Task<Product> GetBySku(string sku);

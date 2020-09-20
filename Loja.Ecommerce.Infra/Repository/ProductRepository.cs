@@ -4,7 +4,6 @@ using Loja.Ecommerce.Infra.Context;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Loja.Ecommerce.Infra.Repository
@@ -44,11 +43,6 @@ namespace Loja.Ecommerce.Infra.Repository
             return await _context.Product.Find(p => p.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> HasExists(string sku)
-        {
-            return await _context.Product.Find(p => p.SKU.Equals(sku)).AnyAsync();
-        }
-
         public async Task<IEnumerable<Product>> GetByCategory(string category, int skip = 0, int limit = 20)
         {
             return await _context.Product.Find(p => p.Category.Name.Equals(category)).Skip(skip).Limit(limit).ToListAsync();
@@ -57,6 +51,16 @@ namespace Loja.Ecommerce.Infra.Repository
         public async Task<Product> GetBySku(string sku)
         {
             return await _context.Product.Find(p => p.SKU.Equals(sku)).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Product>> GetByName(string name, int skip = 0, int limit = 0)
+        {
+            return await _context.Product.Find(p => p.Name.Contains(name)).Skip(skip).Limit(limit).ToListAsync();
+        }
+
+        public async Task<bool> HasExists(string sku)
+        {
+            return await _context.Product.Find(p => p.SKU.Equals(sku)).AnyAsync();
         }
     }
 }

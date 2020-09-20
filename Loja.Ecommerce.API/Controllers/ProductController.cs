@@ -3,7 +3,6 @@ using Loja.Ecommerce.Services.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Loja.Ecommerce.API.Controllers
@@ -25,9 +24,6 @@ namespace Loja.Ecommerce.API.Controllers
             {
                 var products = await _service.GetAll(skip, limit);
 
-                if (!products.Any())
-                    return NotFound();
-
                 return Ok(products);
             }
             catch (Exception ex)
@@ -42,9 +38,6 @@ namespace Loja.Ecommerce.API.Controllers
             try
             {
                 var product = await _service.GetById(ObjectId.Parse(id));
-
-                if (product == null)
-                    return NotFound();
 
                 return Ok(product);
             }
@@ -62,9 +55,6 @@ namespace Loja.Ecommerce.API.Controllers
             {
                 var product = await _service.GetByCategory(category);
 
-                if (product == null)
-                    return NotFound();
-
                 return Ok(product);
             }
             catch (Exception ex)
@@ -81,8 +71,21 @@ namespace Loja.Ecommerce.API.Controllers
             {
                 var product = await _service.GetBySku(sku);
 
-                if (product == null)
-                    return NotFound();
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("BuscarPorNome/{name}")]
+        public async Task<IActionResult> GetByName(string name)
+        {
+            try
+            {
+                var product = await _service.GetByName(name);
 
                 return Ok(product);
             }
