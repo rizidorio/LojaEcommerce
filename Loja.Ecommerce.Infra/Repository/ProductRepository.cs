@@ -49,9 +49,9 @@ namespace Loja.Ecommerce.Infra.Repository
             return await _context.Product.Find(p => p.SKU.Equals(sku)).AnyAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetByCategory(string category)
+        public async Task<IEnumerable<Product>> GetByCategory(string category, int skip = 0, int limit = 20)
         {
-            return await _context.Product.Find(p => p.Category.Name.Equals(category)).ToListAsync();
+            return await _context.Product.Find(p => p.Category.Name.Equals(category)).Skip(skip).Limit(limit).ToListAsync();
         }
 
         public async Task<Product> GetBySku(string sku)

@@ -23,6 +23,9 @@ namespace Loja.Ecommerce.Services.Services
         {
             var result =  await _categoryRepository.GetAll(skip, limit);
 
+            if (result.Count() == 0)
+                throw new Exception("Não existe categoria cadastrada.");
+
             return result.Select(cat => new CategoryModel { 
                 Id = cat.Id.ToString(),
                 Name = cat.Name
@@ -35,6 +38,26 @@ namespace Loja.Ecommerce.Services.Services
                 throw new Exception("O Id não pode ser em branco.");
 
             var cat = await _categoryRepository.GetById(id);
+
+            if (cat == null)
+                throw new Exception("Categoria não encontrada.");
+
+            return new CategoryModel
+            {
+                Id = cat.Id.ToString(),
+                Name = cat.Name
+            };
+        }
+
+        public async Task<CategoryModel> GetByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new Exception("O nome não pode ser em branco.");
+
+            var cat = await _categoryRepository.GetByName(name.ToUpper());
+
+            if (cat == null)
+                throw new Exception("Categoria não encontrada");
 
             return new CategoryModel
             {
@@ -88,21 +111,6 @@ namespace Loja.Ecommerce.Services.Services
             await _categoryRepository.Delete(id);
         }
 
-        public async Task<CategoryModel> GetByName(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-                throw new Exception("O nome não pode ser em branco.");
-
-            var cat = await _categoryRepository.GetByName(name.ToUpper());
-
-            if(cat == null)
-                throw new Exception("Categoria não encontrada");
-
-            return new CategoryModel
-            {
-                Id = cat.Id.ToString(),
-                Name = cat.Name
-            };
-        }
+       
     }
 }

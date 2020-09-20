@@ -25,7 +25,7 @@ namespace Loja.Ecommerce.Services.Services
         {
             var result = await _productRepository.GetAll(skip, limit);
 
-            if (result == null)
+            if (result.Count() == 0)
                 throw new Exception("Não existe produtos cadastrados.");
 
             return result.Select(prod => new ProductModel
@@ -41,9 +41,9 @@ namespace Loja.Ecommerce.Services.Services
             });
         }
 
-        public async Task<IEnumerable<ProductModel>> GetByCategory(string category)
+        public async Task<IEnumerable<ProductModel>> GetByCategory(string category, int skip = 0, int limit = 20)
         {
-            var result = await _productRepository.GetByCategory(category.ToUpper());
+            var result = await _productRepository.GetByCategory(category.ToUpper(), skip, limit);
 
             if (result.Count() == 0)
                 throw new Exception("Não existe produtos nessa categoria.");
@@ -68,6 +68,9 @@ namespace Loja.Ecommerce.Services.Services
 
             var prod = await _productRepository.GetById(id);
 
+            if (prod == null)
+                throw new Exception("Produto não encontrado.");
+
             return new ProductModel
             {
                 Id = prod.Id.ToString(),
@@ -83,7 +86,6 @@ namespace Loja.Ecommerce.Services.Services
 
         public async Task<ProductModel> GetBySku(string sku)
         {
-
             var prod = await _productRepository.GetBySku(sku.ToUpper());
 
             if(prod == null)
@@ -104,7 +106,7 @@ namespace Loja.Ecommerce.Services.Services
 
         public async Task Insert(ProductModel product)
         {
-            if(await _productRepository.HasExists(product.SKU))
+            if(await _productRepository.HasExists(product.SKU.ToUpper()))
                 throw new Exception("Produto já cadastrado.");
 
             var cat = await _categoryRepository.GetByName(product.Category.ToUpper());
@@ -147,7 +149,7 @@ namespace Loja.Ecommerce.Services.Services
             if (queriedProduct == null)
                 throw new Exception("Produto não encontrado.");
 
-            var cat = await _categoryRepository.GetById(ObjectId.Parse(product.Category));
+            var cat = await _categoryRepository.GetByName(product.Category.ToUpper());
 
             var prod = new Product
             {
@@ -161,6 +163,18 @@ namespace Loja.Ecommerce.Services.Services
                 Price = product.Price
             };
 
+            if (string.IsNullOrEmpty(prod.Name))
+                throw new Exception("O nome do produto não pode ser em branco.");
+
+            if (string.IsNullOrEmpty(prod.SKU))
+                throw new Exception("O SKU do produto não pode ser em branco.");
+
+            if (string.IsNullOrEmpty(prod.Brand))
+                throw new Exception("A marca do produto não pode ser em branco.");
+
+            if (prod.Price <= 0)
+                throw new Exception("O preço do produto não pode ser menor ou igual a 0.");
+
             await _productRepository.Update(prod);
         }
 
@@ -171,95 +185,5 @@ namespace Loja.Ecommerce.Services.Services
 
             await _productRepository.Delete(id);
         }
-
-        //public IEnumerable<ProductModel> GetAll(int skip = 0, int limit = 20)
-        //{
-        //    return _productRepository.GetAll(skip, limit).Select(prod => new ProductModel
-        //    {
-        //        Id = prod.Id.ToString(),
-        //        SKU = prod.SKU,
-        //        Name = prod.Name,
-        //        Description = prod.Description,
-        //        Brand = prod.Brand,
-        //        Category = prod.Category.Name,    
-        //        ImageUrl = prod.ImageUrl,
-        //        Price = prod.Price
-        //    });
-        //}
-
-        //public ProductModel GetById(ObjectId id)
-        //{
-        //    if (id == null)
-        //        throw new Exception("O Id não pode ser em branco.");
-
-        //    var prod = _productRepository.GetById(id);
-
-        //    return new ProductModel
-        //    {
-        //        Id = prod.Id.ToString(),
-        //        SKU = prod.SKU,
-        //        Name = prod.Name,
-        //        Description = prod.Description,
-        //        Brand = prod.Brand,
-        //        Category = prod.Category.Name,
-        //        ImageUrl = prod.ImageUrl,
-        //        Price = prod.Price
-        //    };
-        //}
-
-        //public void Insert(ProductModel product)
-        //{
-        //    if (_productRepository.HasExists(product.SKU))
-        //        throw new Exception("SKU já existe.");
-
-        //    var cat = _categoryRepository.GetById(ObjectId.Parse(product.Category));
-
-        //    var prod = new Product
-        //    {
-        //        SKU = product.SKU,
-        //        Name = product.Name,
-        //        Description = product.Description,
-        //        Brand = product.Brand,
-        //        Category = cat,
-        //        ImageUrl = product.ImageUrl,
-        //        Price = product.Price
-        //    };
-
-        //    _productRepository.Save(prod);
-        //}
-
-        //public void Update(ProductModel product)
-        //{
-        //    var convertedId = ObjectId.Parse(product.Id);
-
-        //    var queriedProduct = _productRepository.GetById(convertedId);
-
-        //    if (queriedProduct == null)
-        //        throw new Exception("Produto não encontrado.");
-
-        //    var cat = _categoryRepository.GetById(ObjectId.Parse(product.Category));
-
-        //    var prod = new Product
-        //    {
-        //        Id = convertedId,
-        //        SKU = product.SKU,
-        //        Name = product.Name,
-        //        Description = product.Description,
-        //        Brand = product.Brand,
-        //        Category = cat,
-        //        ImageUrl = product.ImageUrl,
-        //        Price = product.Price
-        //    };
-
-        //    _productRepository.Update(prod);
-        //}
-
-        //public void Delete(ObjectId id)
-        //{
-        //    if (id == null)
-        //        throw new Exception("O Id não pode ser em branco.");
-
-        //    _productRepository.Delete(id);
-        //}
     }
 }
