@@ -101,7 +101,7 @@ namespace Loja.Ecommerce.API.Controllers
             try
             {
                 await _service.Insert(product);
-                return Created("api/produtos/buscarprodutoporid", product);
+                return new CreatedAtActionResult(nameof(GetById), "produtos", new { id = product.Id }, product);
             }
             catch (Exception ex)
             {

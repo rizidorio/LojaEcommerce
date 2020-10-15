@@ -1,13 +1,10 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿using System;
 
 namespace Loja.Ecommerce.Domain.Entities
 {
     public class Product
     {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; private set; }
+        public Guid Id { get; private set; }
         public string SKU { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
@@ -16,11 +13,11 @@ namespace Loja.Ecommerce.Domain.Entities
         public Category Category { get; private set; }
         public decimal Price { get; private set; }
 
-        public Product(string id, string sku, string name, string description, string brand, string imageUrl, Category category, decimal price)
+        public Product(string sku, string name, string description, string brand, string imageUrl, Category category, decimal price)
         {
             Validate(sku, name, brand, price);
 
-            Id = id;
+            Id = Guid.NewGuid();
             SKU = sku;
             Name = name;
             Description = description;

@@ -8,7 +8,6 @@ namespace Loja.Ecommerce.Infra.Context
     {
         private readonly MongoClient client;
         private readonly IMongoDatabase db;
-        //public IConfigurationRoot Configuration { get; }
 
         public ContextMongo(IConfiguration configuration)
         {

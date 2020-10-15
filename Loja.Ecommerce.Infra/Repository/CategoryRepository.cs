@@ -2,6 +2,7 @@
 using Loja.Ecommerce.Domain.Interfaces;
 using Loja.Ecommerce.Infra.Context;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -27,7 +28,7 @@ namespace Loja.Ecommerce.Infra.Repository
             await _context.Category.ReplaceOneAsync(c => c.Id.Equals(category.Id), category);  
         }
 
-        public async Task Delete(string id)
+        public async Task Delete(Guid id)
         {
            await _context.Category.DeleteOneAsync(c => c.Id.Equals(id));
         }
@@ -37,7 +38,7 @@ namespace Loja.Ecommerce.Infra.Repository
             return await _context.Category.Find(c => true).Skip(skip).Limit(limit).ToListAsync();
         }
 
-        public async Task<Category> GetById(string id)
+        public async Task<Category> GetById(Guid id)
         {
             return await _context.Category.Find(c => c.Id.Equals(id)).FirstOrDefaultAsync();
         }

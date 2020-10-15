@@ -30,7 +30,7 @@ namespace Loja.Ecommerce.Services.Services
             if (category == null)
                 throw new Exception("Categoria inválida.");
 
-            var convertedProduct = new Product(product.Id, product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
+            var convertedProduct = new Product(product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
 
             await _productRepository.Insert(convertedProduct);
         }        
@@ -44,7 +44,7 @@ namespace Loja.Ecommerce.Services.Services
 
             var category = await _categoryRepository.GetByName(product.Category.ToUpper());
 
-            var convertedProduct = new Product(product.Id, product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
+            var convertedProduct = new Product(product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
 
             await _productRepository.Update(convertedProduct);
         }

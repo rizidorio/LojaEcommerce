@@ -33,7 +33,7 @@ namespace Loja.Ecommerce.API.Controllers
         }
 
         [HttpGet("{id}", Name = "buscarCategoriaPorId")]
-        public async Task<IActionResult> GetCategoryById(string id)
+        public async Task<IActionResult> GetCategoryById(Guid id)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Loja.Ecommerce.API.Controllers
             try
             {
                 await _service.Insert(category);
-                return Created("api/categorias", category);
+                return Ok(category);
             }
             catch (Exception ex)
             {
@@ -92,7 +92,7 @@ namespace Loja.Ecommerce.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             try
             {
