@@ -9,11 +9,11 @@ namespace Loja.Ecommerce.Services.Interfaces
     {
         Task Insert(ProductModel product);
         Task Update(ProductModel product);
-        Task Delete(ObjectId id);
+        Task Delete(string id);
         Task<IEnumerable<ProductModel>> GetAll(int skip = 0, int limit = 20);
         Task<IEnumerable<ProductModel>> GetByName(string name, int skip = 0, int limit = 20);
         Task<IEnumerable<ProductModel>> GetByCategory(string category, int skip = 0, int limit = 20);
-        Task<ProductModel> GetById(ObjectId id);
+        Task<ProductModel> GetById(string id);
         Task<ProductModel> GetBySku(string sku);
     }
 }

@@ -24,46 +24,30 @@ namespace Loja.Ecommerce.Services.Services
             if (await _categoryRepository.HasExists(category.Name.ToUpper()))
                 throw new Exception("Categoria já cadastrada.");
 
-            var cat = new Category
-            {
-                Name = category.Name.ToUpper()
-            };
+            var convertedCategory = new Category(category.Id, category.Name);
 
-            if (string.IsNullOrEmpty(cat.Name))
-                throw new Exception("Nome não pode ser em branco.");
-
-            await _categoryRepository.Insert(cat);
+            await _categoryRepository.Insert(convertedCategory);
         }
 
         public async Task Update(CategoryModel category)
         {
-            var convertedId = ObjectId.Parse(category.Id);
-
-            var queriedCategory = await _categoryRepository.GetById(convertedId);
+            var queriedCategory = await _categoryRepository.GetById(category.Id);
 
             if (queriedCategory == null)
                 throw new Exception("Categoria não encontrada.");
 
-            var cat = new Category
-            {
-                Id = convertedId,
-                Name = category.Name.ToUpper()
-            };
+            var convertedCategory = new Category(category.Id, category.Name.ToUpper());
 
-            if (string.IsNullOrEmpty(cat.Name))
-                throw new Exception("Nome não pode ser em branco.");
-
-            await _categoryRepository.Update(cat);
+            await _categoryRepository.Update(convertedCategory);
         }
 
-        public async Task Delete(ObjectId id)
+        public async Task Delete(string id)
         {
             if (id == null)
                 throw new Exception("O Id não pode ser em branco.");
 
             await _categoryRepository.Delete(id);
         }
-
 
         public async Task<IEnumerable<CategoryModel>> GetAll(int skip = 0, int limit = 10)
         {
@@ -72,26 +56,26 @@ namespace Loja.Ecommerce.Services.Services
             if (result.Count() == 0)
                 throw new Exception("Não existe categoria cadastrada.");
 
-            return result.Select(cat => new CategoryModel { 
-                Id = cat.Id.ToString(),
-                Name = cat.Name
+            return result.Select(category => new CategoryModel { 
+                Id = category.Id.ToString(),
+                Name = category.Name
             });
         }
 
-        public async Task<CategoryModel> GetById(ObjectId id)
+        public async Task<CategoryModel> GetById(string id)
         {
             if (id == null)
                 throw new Exception("O Id não pode ser em branco.");
 
-            var cat = await _categoryRepository.GetById(id);
+            var category = await _categoryRepository.GetById(id);
 
-            if (cat == null)
+            if (category == null)
                 throw new Exception("Categoria não encontrada.");
 
             return new CategoryModel
             {
-                Id = cat.Id.ToString(),
-                Name = cat.Name
+                Id = category.Id.ToString(),
+                Name = category.Name
             };
         }
 
@@ -100,15 +84,15 @@ namespace Loja.Ecommerce.Services.Services
             if (string.IsNullOrEmpty(name))
                 throw new Exception("O nome não pode ser em branco.");
 
-            var cat = await _categoryRepository.GetByName(name.ToUpper());
+            var category = await _categoryRepository.GetByName(name.ToUpper());
 
-            if (cat == null)
+            if (category == null)
                 throw new Exception("Categoria não encontrada.");
 
             return new CategoryModel
             {
-                Id = cat.Id.ToString(),
-                Name = cat.Name
+                Id = category.Id.ToString(),
+                Name = category.Name
             };
         }
     }

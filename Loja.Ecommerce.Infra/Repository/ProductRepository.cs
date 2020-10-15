@@ -28,7 +28,7 @@ namespace Loja.Ecommerce.Infra.Repository
             await _context.Product.ReplaceOneAsync(p => p.Id.Equals(product.Id), product);
         }
 
-        public async Task Delete(ObjectId id)
+        public async Task Delete(string id)
         {
             await _context.Product.DeleteOneAsync(p => p.Id.Equals(id));
         }
@@ -38,7 +38,7 @@ namespace Loja.Ecommerce.Infra.Repository
             return await _context.Product.Find(p => true).Skip(skip).Limit(limit).ToListAsync();
         }
 
-        public async Task<Product> GetById(ObjectId id)
+        public async Task<Product> GetById(string id)
         {
             return await _context.Product.Find(p => p.Id.Equals(id)).FirstOrDefaultAsync();
         }

@@ -2,7 +2,6 @@
 using Loja.Ecommerce.Domain.Interfaces;
 using Loja.Ecommerce.Services.Interfaces;
 using Loja.Ecommerce.Services.Models;
-using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,56 +25,31 @@ namespace Loja.Ecommerce.Services.Services
             if (await _productRepository.HasExists(product.SKU.ToUpper()))
                 throw new Exception("Produto já cadastrado.");
 
-            var cat = await _categoryRepository.GetByName(product.Category.ToUpper());
+            var category = await _categoryRepository.GetByName(product.Category.ToUpper());
 
-            if (cat == null)
+            if (category == null)
                 throw new Exception("Categoria inválida.");
 
-            var prod = new Product
-            {
-                SKU = product.SKU.ToUpper(),
-                Name = product.Name,
-                Description = product.Description,
-                Brand = product.Brand,
-                Category = cat,
-                ImageUrl = product.ImageUrl,
-                Price = product.Price
-            };
+            var convertedProduct = new Product(product.Id, product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
 
-            ValidateProdutc(prod);
-
-            await _productRepository.Insert(prod);
+            await _productRepository.Insert(convertedProduct);
         }        
 
         public async Task Update(ProductModel product)
         {
-            var convertedId = ObjectId.Parse(product.Id);
-
-            var queriedProduct = await _productRepository.GetById(convertedId);
+            var queriedProduct = await _productRepository.GetById(product.Id);
 
             if (queriedProduct == null)
                 throw new Exception("Produto não encontrado.");
 
-            var cat = await _categoryRepository.GetByName(product.Category.ToUpper());
+            var category = await _categoryRepository.GetByName(product.Category.ToUpper());
 
-            var prod = new Product
-            {
-                Id = convertedId,
-                SKU = product.SKU.ToUpper(),
-                Name = product.Name,
-                Description = product.Description,
-                Brand = product.Brand,
-                Category = cat,
-                ImageUrl = product.ImageUrl,
-                Price = product.Price
-            };
+            var convertedProduct = new Product(product.Id, product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
 
-            ValidateProdutc(prod);
-
-            await _productRepository.Update(prod);
+            await _productRepository.Update(convertedProduct);
         }
 
-        public async Task Delete(ObjectId id)
+        public async Task Delete(string id)
         {
             if (id == null)
                 throw new Exception("O Id não pode ser em branco.");
@@ -90,16 +64,16 @@ namespace Loja.Ecommerce.Services.Services
             if (result.Count() == 0)
                 throw new Exception("Não existe produtos cadastrados.");
 
-            return result.Select(prod => new ProductModel
+            return result.Select(product => new ProductModel
             {
-                Id = prod.Id.ToString(),
-                SKU = prod.SKU,
-                Name = prod.Name,
-                Description = prod.Description,
-                Brand = prod.Brand,
-                Category = prod.Category.Name,
-                ImageUrl = prod.ImageUrl,
-                Price = prod.Price
+                Id = product.Id.ToString(),
+                SKU = product.SKU,
+                Name = product.Name,
+                Description = product.Description,
+                Brand = product.Brand,
+                Category = product.Category.Name,
+                ImageUrl = product.ImageUrl,
+                Price = product.Price
             });
         }
 
@@ -110,36 +84,36 @@ namespace Loja.Ecommerce.Services.Services
             if (result.Count() == 0)
                 throw new Exception("Não existe produtos nessa categoria.");
 
-            return result.Select(prod => new ProductModel
+            return result.Select(product => new ProductModel
             {
-                Id = prod.Id.ToString(),
-                SKU = prod.SKU,
-                Name = prod.Name,
-                Description = prod.Description,
-                Brand = prod.Brand,
-                Category = prod.Category.Name,
-                ImageUrl = prod.ImageUrl,
-                Price = prod.Price
+                Id = product.Id.ToString(),
+                SKU = product.SKU,
+                Name = product.Name,
+                Description = product.Description,
+                Brand = product.Brand,
+                Category = product.Category.Name,
+                ImageUrl = product.ImageUrl,
+                Price = product.Price
             });
         }
 
         public async Task<ProductModel> GetBySku(string sku)
         {
-            var prod = await _productRepository.GetBySku(sku.ToUpper());
+            var product = await _productRepository.GetBySku(sku.ToUpper());
 
-            if (prod == null)
+            if (product == null)
                 throw new Exception("Produto não encontrado.");
 
             return new ProductModel
             {
-                Id = prod.Id.ToString(),
-                SKU = prod.SKU,
-                Name = prod.Name,
-                Description = prod.Description,
-                Brand = prod.Brand,
-                Category = prod.Category.Name,
-                ImageUrl = prod.ImageUrl,
-                Price = prod.Price
+                Id = product.Id.ToString(),
+                SKU = product.SKU,
+                Name = product.Name,
+                Description = product.Description,
+                Brand = product.Brand,
+                Category = product.Category.Name,
+                ImageUrl = product.ImageUrl,
+                Price = product.Price
             };
         }
 
@@ -148,57 +122,42 @@ namespace Loja.Ecommerce.Services.Services
             var result = await _productRepository.GetByName(name, skip, limit);
 
             if (result.Count() == 0)
-                throw new Exception("Produto naõ econtrado.");
+                throw new Exception("Produto não econtrado.");
 
-            return result.Select(prod => new ProductModel
+            return result.Select(product => new ProductModel
             {
-                Id = prod.Id.ToString(),
-                SKU = prod.SKU,
-                Name = prod.Name,
-                Description = prod.Description,
-                Brand = prod.Brand,
-                Category = prod.Category.Name,
-                ImageUrl = prod.ImageUrl,
-                Price = prod.Price
+                Id = product.Id.ToString(),
+                SKU = product.SKU,
+                Name = product.Name,
+                Description = product.Description,
+                Brand = product.Brand,
+                Category = product.Category.Name,
+                ImageUrl = product.ImageUrl,
+                Price = product.Price
             });
         }
 
-        public async Task<ProductModel> GetById(ObjectId id)
+        public async Task<ProductModel> GetById(string id)
         {
             if (id == null)
                 throw new Exception("O Id não pode ser em branco.");
 
-            var prod = await _productRepository.GetById(id);
+            var product = await _productRepository.GetById(id);
 
-            if (prod == null)
+            if (product == null)
                 throw new Exception("Produto não encontrado.");
 
             return new ProductModel
             {
-                Id = prod.Id.ToString(),
-                SKU = prod.SKU,
-                Name = prod.Name,
-                Description = prod.Description,
-                Brand = prod.Brand,
-                Category = prod.Category.Name,
-                ImageUrl = prod.ImageUrl,
-                Price = prod.Price
+                Id = product.Id.ToString(),
+                SKU = product.SKU,
+                Name = product.Name,
+                Description = product.Description,
+                Brand = product.Brand,
+                Category = product.Category.Name,
+                ImageUrl = product.ImageUrl,
+                Price = product.Price
             };
-        }
-
-        private static void ValidateProdutc(Product prod)
-        {
-            if (string.IsNullOrEmpty(prod.Name))
-                throw new Exception("O nome do produto não pode ser em branco.");
-
-            if (string.IsNullOrEmpty(prod.SKU))
-                throw new Exception("O SKU do produto não pode ser em branco.");
-
-            if (string.IsNullOrEmpty(prod.Brand))
-                throw new Exception("A marca do produto não pode ser em branco.");
-
-            if (prod.Price < 0)
-                throw new Exception("O preço do produto não pode ser menor 0.");
         }
     }
 }

@@ -15,10 +15,10 @@ namespace Loja.Ecommerce.Tests
 
         ////Teste salvar
         //[Theory]
-        //[InlineData("PROD0001", "Televisão 32 polegadas", "Televisão 32 polegadas", "Sony", "test image", , 526)]
-        //[InlineData("PROD0002", "Geladeira 380 litros", "Geladeira 380 litros", "Eletrolux", "test image", "Geladeiras", 1250)]
-        //[InlineData("PROD0003", "Fogão 4 bocas", "Fogão a gás 4 bocas", "Dako", "test image", "Fogês", 351)]
-        //public void Save(string sku, string name, string description, string brand, string imageUrl, Category category, decimal price)
+        //[InlineData("PROD0001", "Televisão 32 polegadas", "Televisão 32 polegadas", "Sony", "test image", 526)]
+        //[InlineData("PROD0002", "Geladeira 380 litros", "Geladeira 380 litros", "Eletrolux", "test image", 1250)]
+        //[InlineData("PROD0003", "Fogão 4 bocas", "Fogão a gás 4 bocas", "Dako", "test image", 351)]
+        //public async void Save(string sku, string name, string description, string brand, string imageUrl, decimal price)
         //{
         //    Product product = new Product
         //    {
@@ -27,11 +27,10 @@ namespace Loja.Ecommerce.Tests
         //        Description = description,
         //        Brand = brand,
         //        ImageUrl = imageUrl,
-        //        Category = category,
         //        Price = price
         //    };
 
-        //    _repository.Save(product);
+        //    await _repository.Insert(product);
         //}
 
         //// Teste salvar null
@@ -45,16 +44,16 @@ namespace Loja.Ecommerce.Tests
         ////Teste SKU
         //[Theory]
         //[InlineData("PROD0003")]
-        //public void SkuExist(string sku)
+        //public async void SkuExist(string sku)
         //{
-        //    Assert.True(_repository.HasExists(sku));
+        //    Assert.True(await _repository.HasExists(sku));
         //}
 
         ////Verifica Retorno
         //[Fact]
-        //public void GetAll()
+        //public async void GetAll()
         //{
-        //    Assert.NotEmpty(_repository.GetAll(0, 20));
+        //    Assert.NotEmpty(await _repository.GetAll(0, 20));
         //}
     }
 }

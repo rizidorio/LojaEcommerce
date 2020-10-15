@@ -32,12 +32,12 @@ namespace Loja.Ecommerce.API.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetCategoryById")]
+        [HttpGet("{id}", Name = "buscarCategoriaPorId")]
         public async Task<IActionResult> GetCategoryById(string id)
         {
             try
             {
-                var category = await _service.GetById(ObjectId.Parse(id));
+                var category = await _service.GetById(id);
 
                 return Ok(category);
             }
@@ -69,7 +69,7 @@ namespace Loja.Ecommerce.API.Controllers
             try
             {
                 await _service.Insert(category);
-                return Created("api/categorias/GetCategoryById", category);
+                return Created("api/categorias", category);
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@ namespace Loja.Ecommerce.API.Controllers
         {
             try
             {
-                await _service.Delete(ObjectId.Parse(id));
+                await _service.Delete(id);
 
                 return Ok("Apagado com sucesso!");
             }

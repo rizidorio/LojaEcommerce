@@ -17,8 +17,7 @@ namespace Loja.Ecommerce.Infra.IoC
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
-            services.AddTransient<ContextMongo>();
-
+            services.AddSingleton<ContextMongo>();
         }
     }
 }
