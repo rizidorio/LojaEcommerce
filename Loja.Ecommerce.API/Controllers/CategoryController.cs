@@ -1,7 +1,6 @@
 ﻿using Loja.Ecommerce.Services.Interfaces;
 using Loja.Ecommerce.Services.Models;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 using System;
 using System.Threading.Tasks;
 
@@ -33,7 +32,7 @@ namespace Loja.Ecommerce.API.Controllers
         }
 
         [HttpGet("{id}", Name = "buscarCategoriaPorId")]
-        public async Task<IActionResult> GetCategoryById(Guid id)
+        public async Task<IActionResult> GetCategoryById(string id)
         {
             try
             {
@@ -68,8 +67,8 @@ namespace Loja.Ecommerce.API.Controllers
         {
             try
             {
-                await _service.Insert(category);
-                return Ok(category);
+                var result = await _service.Insert(category);
+                return Created(new Uri(Url.Link("buscarCategoriaPorId", new { id = result.Id})), result);
             }
             catch (Exception ex)
             {
@@ -92,7 +91,7 @@ namespace Loja.Ecommerce.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(string id)
         {
             try
             {

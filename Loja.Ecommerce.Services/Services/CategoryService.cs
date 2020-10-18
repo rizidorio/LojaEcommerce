@@ -18,14 +18,24 @@ namespace Loja.Ecommerce.Services.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task Insert(CategoryModel category)
+        public async Task<CategoryModel> Insert(CategoryModel category)
         {
             if (await _categoryRepository.HasExists(category.Name.ToUpper()))
                 throw new Exception("Categoria já cadastrada.");
 
             var convertedCategory = new Category(category.Name.ToUpper());
 
-            await _categoryRepository.Insert(convertedCategory);
+            var result = await _categoryRepository.Insert(convertedCategory);
+
+            if (result != null)
+            {
+                category.Id = result.Id.ToString();
+                category.Name = result.Name;
+            }
+            else
+                throw new Exception("Não foi possível efetuar a operação, contate o administrador.");
+
+            return category;
         }
 
         public async Task Update(CategoryModel category)
@@ -35,12 +45,12 @@ namespace Loja.Ecommerce.Services.Services
             if (queriedCategory == null)
                 throw new Exception("Categoria não encontrada.");
 
-            var convertedCategory = new Category(category.Name.ToUpper());
+            var convertedCategory = new Category(Guid.Parse(category.Id), category.Name.ToUpper());
 
             await _categoryRepository.Update(convertedCategory);
         }
 
-        public async Task Delete(Guid id)
+        public async Task Delete(string id)
         {
             if (id == null)
                 throw new Exception("O Id não pode ser em branco.");
@@ -56,12 +66,12 @@ namespace Loja.Ecommerce.Services.Services
                 throw new Exception("Não existe categoria cadastrada.");
 
             return result.Select(category => new CategoryModel { 
-                Id = category.Id,
+                Id = category.Id.ToString(),
                 Name = category.Name
             });
         }
 
-        public async Task<CategoryModel> GetById(Guid id)
+        public async Task<CategoryModel> GetById(string id)
         {
             if (id == null)
                 throw new Exception("O Id não pode ser em branco.");
@@ -73,7 +83,7 @@ namespace Loja.Ecommerce.Services.Services
 
             return new CategoryModel
             {
-                Id = category.Id,
+                Id = category.Id.ToString(),
                 Name = category.Name
             };
         }
@@ -90,7 +100,7 @@ namespace Loja.Ecommerce.Services.Services
 
             return new CategoryModel
             {
-                Id = category.Id,
+                Id = category.Id.ToString(),
                 Name = category.Name
             };
         }

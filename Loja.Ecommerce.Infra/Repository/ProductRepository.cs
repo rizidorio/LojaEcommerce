@@ -55,7 +55,7 @@ namespace Loja.Ecommerce.Infra.Repository
 
         public async Task<IEnumerable<Product>> GetByName(string name, int skip = 0, int limit = 0)
         {
-            return await _context.Product.Find(p => p.Name.Contains(name)).Skip(skip).Limit(limit).ToListAsync();
+            return await _context.Product.Find(p => p.Name.ToUpper().Contains(name.ToUpper())).Skip(skip).Limit(limit).ToListAsync();
         }
 
         public async Task<bool> HasExists(string sku)

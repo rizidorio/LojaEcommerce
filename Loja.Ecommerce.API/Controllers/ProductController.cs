@@ -1,7 +1,6 @@
 ﻿using Loja.Ecommerce.Services.Interfaces;
 using Loja.Ecommerce.Services.Models;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 using System;
 using System.Threading.Tasks;
 
@@ -100,8 +99,8 @@ namespace Loja.Ecommerce.API.Controllers
         {
             try
             {
-                await _service.Insert(product);
-                return new CreatedAtActionResult(nameof(GetById), "produtos", new { id = product.Id }, product);
+                var result = await _service.Insert(product);
+                return Created(new Uri(Url.Link("BuscarProdutoPorId", new { id = result.Id })), result);
             }
             catch (Exception ex)
             {

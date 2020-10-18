@@ -20,7 +20,7 @@ namespace Loja.Ecommerce.Services.Services
             _categoryRepository = categoryRepository;
         }     
 
-        public async Task Insert(ProductModel product)
+        public async Task<ProductModel> Insert(ProductModel product)
         {
             if (await _productRepository.HasExists(product.SKU.ToUpper()))
                 throw new Exception("Produto já cadastrado.");
@@ -32,7 +32,15 @@ namespace Loja.Ecommerce.Services.Services
 
             var convertedProduct = new Product(product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
 
-            await _productRepository.Insert(convertedProduct);
+            var result = await _productRepository.Insert(convertedProduct);
+
+            if(result != null)
+            {
+                product.Id = result.Id.ToString();
+                product.SKU = result.SKU;
+            }
+
+            return product;
         }        
 
         public async Task Update(ProductModel product)
@@ -44,7 +52,7 @@ namespace Loja.Ecommerce.Services.Services
 
             var category = await _categoryRepository.GetByName(product.Category.ToUpper());
 
-            var convertedProduct = new Product(product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
+            var convertedProduct = new Product(Guid.Parse(product.Id), product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
 
             await _productRepository.Update(convertedProduct);
         }

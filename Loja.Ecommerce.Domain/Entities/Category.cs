@@ -15,6 +15,13 @@ namespace Loja.Ecommerce.Domain.Entities
             Name = name;
         }
 
+        public Category(Guid id, string name)
+        {
+            Validate(name);
+            Id = id;
+            Name = name;
+        }
+
         private static void Validate(string name)
         {
             if (string.IsNullOrWhiteSpace(name)) 

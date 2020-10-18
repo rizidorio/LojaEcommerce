@@ -7,7 +7,7 @@ namespace Loja.Ecommerce.Services.Interfaces
 {
     public interface IProductService
     {
-        Task Insert(ProductModel product);
+        Task<ProductModel> Insert(ProductModel product);
         Task Update(ProductModel product);
         Task Delete(string id);
         Task<IEnumerable<ProductModel>> GetAll(int skip = 0, int limit = 20);
