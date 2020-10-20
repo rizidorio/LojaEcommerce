@@ -2,13 +2,13 @@ C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\bin\Debug\netc
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\bin\Debug\netcoreapp2.0\Loja.Ecommerce.Infra.dll
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\bin\Debug\netcoreapp2.0\Loja.Ecommerce.Infra.pdb
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\bin\Debug\netcoreapp2.0\Loja.Ecommerce.Domain.dll
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\bin\Debug\netcoreapp2.0\Loja.Ecommerce.Services.dll
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\bin\Debug\netcoreapp2.0\Loja.Ecommerce.Domain.pdb
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\bin\Debug\netcoreapp2.0\Loja.Ecommerce.Services.pdb
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Infra.csprojAssemblyReference.cache
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Infra.AssemblyInfoInputs.cache
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Infra.AssemblyInfo.cs
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Infra.csproj.CoreCompileInputs.cache
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Infra.csproj.CopyComplete
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Infra.dll
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Infra.pdb
-C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\bin\Debug\netcoreapp2.0\Loja.Ecommerce.Services.dll
-C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\bin\Debug\netcoreapp2.0\Loja.Ecommerce.Services.pdb
-C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Infra\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Infra.csproj.CoreCompileInputs.cache
