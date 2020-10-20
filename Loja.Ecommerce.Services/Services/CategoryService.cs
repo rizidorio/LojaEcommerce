@@ -32,8 +32,6 @@ namespace Loja.Ecommerce.Services.Services
                 category.Id = result.Id.ToString();
                 category.Name = result.Name;
             }
-            else
-                throw new Exception("Não foi possível efetuar a operação, contate o administrador.");
 
             return category;
         }

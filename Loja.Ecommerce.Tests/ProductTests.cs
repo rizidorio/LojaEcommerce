@@ -9,13 +9,13 @@ using Xunit;
 
 namespace Loja.Ecommerce.Tests
 {
-    public class ProductTest
+    public class ProductTests
     {
         private readonly ProductService _service;
         private readonly Mock<IProductRepository> _productMockRepository = new Mock<IProductRepository>();
         private readonly Mock<ICategoryRepository> _categoryMockRepository = new Mock<ICategoryRepository>();
 
-        public ProductTest()
+        public ProductTests()
         {
             _service = new ProductService(_productMockRepository.Object, _categoryMockRepository.Object);
         }
@@ -46,10 +46,10 @@ namespace Loja.Ecommerce.Tests
            _productMockRepository.Setup(x => x.GetById(It.IsAny<string>())).ReturnsAsync(() => null);
 
             // Act
-            var ex = await Assert.ThrowsAsync<Exception>(() => _service.GetById(Guid.NewGuid().ToString()));
+            var exception = await Assert.ThrowsAsync<Exception>(() => _service.GetById(Guid.NewGuid().ToString()));
 
             // Assert
-            Assert.Equal("Produto não encontrado.", ex.Message);
+            Assert.Equal("Produto não encontrado.", exception.Message);
         }
 
         [Fact]

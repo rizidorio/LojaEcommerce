@@ -28,7 +28,7 @@ namespace Loja.Ecommerce.Services.Services
             var category = await _categoryRepository.GetByName(product.Category.ToUpper());
 
             //if (category == null)
-            //    throw new Exception("Categoria inválida.");
+                //throw new Exception("Categoria inválida.");
 
             var convertedProduct = new Product(product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
 

@@ -6,3 +6,4 @@ C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\obj\Debug\net
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Domain.csproj.CoreCompileInputs.cache
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Domain.dll
 C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Domain.pdb
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\obj\Debug\netcoreapp2.0\Loja.Ecommerce.Domain.csprojAssemblyReference.cache
