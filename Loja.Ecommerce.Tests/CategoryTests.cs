@@ -20,7 +20,7 @@ namespace Loja.Ecommerce.Tests
         }
 
         [Fact]
-        public async Task GetCategoryByName_Test_Success()
+        public async Task GetCategoryByName_Success()
         {
             // Arrange
             var customerId = Guid.NewGuid();
@@ -37,7 +37,7 @@ namespace Loja.Ecommerce.Tests
         }
 
         [Fact]
-        public async Task GetCategoryById_Test_NotName_Error()
+        public async Task GetCategoryByName_Test_NotName_Exceptior()
         {
             // Arrange
             _categoryMockRepository.Setup(x => x.GetByName(It.IsAny<string>())).ReturnsAsync(() => null);
