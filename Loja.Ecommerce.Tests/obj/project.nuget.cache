@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "esB99ug/OcUfEXCMhb+rQELJ2llnW0qkiNQwOrn2l85xwHW4eq2SVDGiBnRXHn4TXkhQXpwvxraUf4wMnQQ6/A==",
+  "dgSpecHash": "G9b8pa9CLyyFnkgsjDttUhWOlyhlKhkPxjYFtW4mNhchfO6zYEbJHAX59HKHusH6dgu6Yvsvul7AzGLAJrugSg==",
   "success": true,
   "projectFilePath": "C:\\projetos\\Mundipagg\\projeto.loja.ecommerce\\Loja.Ecommerce.Tests\\Loja.Ecommerce.Tests.csproj",
   "expectedPackageFiles": [
@@ -15,9 +15,9 @@
     "C:\\Users\\Ricardo\\.nuget\\packages\\microsoft.testplatform.objectmodel\\16.5.0\\microsoft.testplatform.objectmodel.16.5.0.nupkg.sha512",
     "C:\\Users\\Ricardo\\.nuget\\packages\\microsoft.testplatform.testhost\\16.5.0\\microsoft.testplatform.testhost.16.5.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
-    "C:\\Users\\Ricardo\\.nuget\\packages\\mongodb.bson\\2.11.2\\mongodb.bson.2.11.2.nupkg.sha512",
-    "C:\\Users\\Ricardo\\.nuget\\packages\\mongodb.driver\\2.11.2\\mongodb.driver.2.11.2.nupkg.sha512",
-    "C:\\Users\\Ricardo\\.nuget\\packages\\mongodb.driver.core\\2.11.2\\mongodb.driver.core.2.11.2.nupkg.sha512",
+    "C:\\Users\\Ricardo\\.nuget\\packages\\mongodb.bson\\2.11.4\\mongodb.bson.2.11.4.nupkg.sha512",
+    "C:\\Users\\Ricardo\\.nuget\\packages\\mongodb.driver\\2.11.4\\mongodb.driver.2.11.4.nupkg.sha512",
+    "C:\\Users\\Ricardo\\.nuget\\packages\\mongodb.driver.core\\2.11.4\\mongodb.driver.core.2.11.4.nupkg.sha512",
     "C:\\Users\\Ricardo\\.nuget\\packages\\mongodb.libmongocrypt\\1.0.0\\mongodb.libmongocrypt.1.0.0.nupkg.sha512",
     "C:\\Users\\Ricardo\\.nuget\\packages\\moq\\4.14.7\\moq.4.14.7.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",

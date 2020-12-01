@@ -1,0 +1,12 @@
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Services.csprojAssemblyReference.cache
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Services.AssemblyInfoInputs.cache
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Services.AssemblyInfo.cs
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Services.csproj.CoreCompileInputs.cache
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\bin\Debug\netcoreapp3.1\Loja.Ecommerce.Services.deps.json
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\bin\Debug\netcoreapp3.1\Loja.Ecommerce.Services.dll
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\bin\Debug\netcoreapp3.1\Loja.Ecommerce.Services.pdb
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\bin\Debug\netcoreapp3.1\Loja.Ecommerce.Domain.dll
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\bin\Debug\netcoreapp3.1\Loja.Ecommerce.Domain.pdb
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Services.csproj.CopyComplete
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Services.dll
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Services\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Services.pdb

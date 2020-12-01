@@ -23,15 +23,13 @@ namespace Loja.Ecommerce.Services.Services
             if (await _categoryRepository.HasExists(category.Name.ToUpper()))
                 throw new Exception("Categoria já cadastrada.");
 
-            var convertedCategory = new Category(category.Name.ToUpper());
+            var convertedCategory = new Category(null, category.Name.ToUpper());
 
             var result = await _categoryRepository.Insert(convertedCategory);
 
             if (result != null)
-            {
                 category.Id = result.Id.ToString();
-                category.Name = result.Name;
-            }
+            
 
             return category;
         }

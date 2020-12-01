@@ -53,7 +53,7 @@ namespace Loja.Ecommerce.Tests
         public async Task InsertCategory_Test_Success()
         {
             // Arrange
-            var categoryTest = new Category("Categoria Teste");
+            var categoryTest = new Category(null, "Categoria Teste");
 
             _categoryMockRepository.Setup(x => x.Insert(categoryTest)).ReturnsAsync(categoryTest);
 

@@ -30,14 +30,13 @@ namespace Loja.Ecommerce.Services.Services
             //if (category == null)
                 //throw new Exception("Categoria inválida.");
 
-            var convertedProduct = new Product(product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
+            var convertedProduct = new Product(null, product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
 
             var result = await _productRepository.Insert(convertedProduct);
 
             if(result != null)
             {
                 product.Id = result.Id.ToString();
-                product.SKU = result.SKU;
             }
 
             return product;

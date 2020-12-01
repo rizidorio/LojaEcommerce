@@ -4,7 +4,7 @@ namespace Loja.Ecommerce.Domain.Entities
 {
     public class Product
     {
-        public Guid Id { get; private set; }
+        public Guid? Id { get; private set; }
         public string SKU { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
@@ -13,25 +13,15 @@ namespace Loja.Ecommerce.Domain.Entities
         public Category Category { get; private set; }
         public decimal Price { get; private set; }
 
-        public Product(string sku, string name, string description, string brand, string imageUrl, Category category, decimal price)
+        public Product(Guid? id, string sku, string name, string description, string brand, string imageUrl, Category category, decimal price)
         {
             Validate(sku, name, brand, price);
 
-            Id = Guid.NewGuid();
-            SKU = sku.ToUpper();
-            Name = name;
-            Description = description;
-            Brand = brand;
-            ImageUrl = imageUrl;
-            Category = category;
-            Price = price;
-        }
+            if (id == null)
+                Id = Guid.NewGuid();
+            else
+                Id = id;
 
-        public Product(Guid id, string sku, string name, string description, string brand, string imageUrl, Category category, decimal price)
-        {
-            Validate(sku, name, brand, price);
-
-            Id = id;
             SKU = sku.ToUpper();
             Name = name;
             Description = description;
@@ -55,8 +45,8 @@ namespace Loja.Ecommerce.Domain.Entities
             if (string.IsNullOrWhiteSpace(brand)) 
                 throw new Exception("A Marca não pode ser em branco");
 
-            if (price == 0) 
-                throw new Exception("O Preço não pode ser igual a 0");
+            if (price <= 0) 
+                throw new Exception("O Preço não pode ser menor ou igual a 0");
         }
     }
 }

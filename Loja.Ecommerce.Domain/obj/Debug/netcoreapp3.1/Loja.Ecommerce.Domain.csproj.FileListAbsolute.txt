@@ -1,0 +1,9 @@
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\bin\Debug\netcoreapp3.1\Loja.Ecommerce.Domain.deps.json
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\bin\Debug\netcoreapp3.1\Loja.Ecommerce.Domain.dll
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\bin\Debug\netcoreapp3.1\Loja.Ecommerce.Domain.pdb
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Domain.AssemblyInfoInputs.cache
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Domain.AssemblyInfo.cs
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Domain.csproj.CoreCompileInputs.cache
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Domain.dll
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Domain.pdb
+C:\projetos\Mundipagg\projeto.loja.ecommerce\Loja.Ecommerce.Domain\obj\Debug\netcoreapp3.1\Loja.Ecommerce.Domain.csprojAssemblyReference.cache

@@ -26,7 +26,7 @@ namespace Loja.Ecommerce.Tests
             // Arrange
             var customerId = Guid.NewGuid();
             var productSKU = "PROD0001";
-            var category = new Category("Categoria Teste");
+            var category = new Category(null, "Categoria Teste");
             var productTest = new Product(customerId, productSKU, "Produto Teste", "Produto Teste", "Marca Teste", "Imagem teste", category, 125);
             
             _productMockRepository.Setup(x => x.GetById(customerId.ToString())).ReturnsAsync(productTest);
@@ -56,9 +56,9 @@ namespace Loja.Ecommerce.Tests
         public async Task InsertProduct()
         {
             // Arrange
-            var category = new Category("Categoria Teste");
+            var category = new Category(null, "Categoria Teste");
 
-            var productTest = new Product("PROD0001", "Produto Teste", "Produto Teste", "Marca Teste", "Imagem teste", category, 125);
+            var productTest = new Product(null, "PROD0001", "Produto Teste", "Produto Teste", "Marca Teste", "Imagem teste", category, 125);
 
             _productMockRepository.Setup(x => x.Insert(productTest)).ReturnsAsync(productTest);
 
