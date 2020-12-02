@@ -18,32 +18,41 @@ namespace Loja.Ecommerce.Services.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<CategoryModel> Insert(CategoryModel category)
+        public async Task<CategoryModel> Insert(CategoryModel categoryModel)
         {
-            if (await _categoryRepository.HasExists(category.Name.ToUpper()))
+            if (await _categoryRepository.HasExists(categoryModel.Name.ToUpper()))
                 throw new Exception("Categoria já cadastrada.");
 
-            var convertedCategory = new Category(null, category.Name.ToUpper());
+            var convertedCategory = new Category(Guid.Parse(categoryModel.Id), categoryModel.Name.ToUpper());
 
             var result = await _categoryRepository.Insert(convertedCategory);
 
             if (result != null)
-                category.Id = result.Id.ToString();
-            
+            {
+                categoryModel.Id = result.Id.ToString();    
+            }
 
-            return category;
+            return categoryModel;
         }
 
-        public async Task Update(CategoryModel category)
+        public async Task<CategoryModel> Update(CategoryModel categoryModel)
         {
-            var queriedCategory = await _categoryRepository.GetById(category.Id);
+            var queriedCategory = await _categoryRepository.GetById(categoryModel.Id);
 
             if (queriedCategory == null)
                 throw new Exception("Categoria não encontrada.");
 
-            var convertedCategory = new Category(Guid.Parse(category.Id), category.Name.ToUpper());
+            var convertedCategory = new Category(Guid.Parse(categoryModel.Id), categoryModel.Name.ToUpper());
 
-            await _categoryRepository.Update(convertedCategory);
+            var result = await _categoryRepository.Update(convertedCategory);
+
+            if (result != null)
+            {
+                categoryModel.Id = result.Id.ToString();
+                categoryModel.Name = result.Name;           
+            }
+
+            return categoryModel;
         }
 
         public async Task Delete(string id)

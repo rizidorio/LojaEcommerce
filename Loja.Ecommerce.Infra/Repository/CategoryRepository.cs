@@ -2,6 +2,7 @@
 using Loja.Ecommerce.Domain.Interfaces;
 using Loja.Ecommerce.Infra.Context;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,38 +19,89 @@ namespace Loja.Ecommerce.Infra.Repository
 
         public async Task<Category> Insert(Category category)
         {
-            await _context.Category.InsertOneAsync(category);
-            return category;
+            try
+            {
+                await _context.Category.InsertOneAsync(category);
+                return category;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }           
         }
 
-        public async Task Update(Category category)
+        public async Task<Category> Update(Category category)
         {
-            await _context.Category.ReplaceOneAsync(c => c.Id.Equals(category.Id), category);  
+            try
+            {
+                await _context.Category.ReplaceOneAsync(c => c.Id.Equals(category.Id), category);
+                return category;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }    
         }
 
         public async Task Delete(string id)
         {
-           await _context.Category.DeleteOneAsync(c => c.Id.Equals(id));
+            try
+            {
+                await _context.Category.DeleteOneAsync(c => c.Id.Equals(id));
+            }
+            catch (Exception ex)
+            {
+               throw ex;
+            }          
         }
 
         public async Task<IEnumerable<Category>> GetAll(int skip, int limit)
         {
-            return await _context.Category.Find(c => true).Skip(skip).Limit(limit).ToListAsync();
+
+            try
+            {
+                return await _context.Category.Find(c => true).Skip(skip).Limit(limit).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }          
         }
 
         public async Task<Category> GetById(string id)
         {
-            return await _context.Category.Find(c => c.Id.Equals(id)).FirstOrDefaultAsync();
+            try
+            {
+                return await _context.Category.Find(c => c.Id.Equals(id)).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }           
         }
 
         public async Task<Category> GetByName(string name)
         {
-            return await _context.Category.Find(c => c.Name.Equals(name)).FirstOrDefaultAsync();
+            try
+            {
+                return await _context.Category.Find(c => c.Name.Equals(name)).FirstOrDefaultAsync();
+            }
+            catch (Exception ex) 
+            { 
+                throw ex;
+            }
         }
 
         public async Task<bool> HasExists(string name)
         {
-            return await _context.Category.Find(c => c.Name.Equals(name)).AnyAsync();
+            try
+            {
+                return await _context.Category.Find(c => c.Name.Equals(name)).AnyAsync();
+            }
+            catch (Exception ex) 
+            { 
+                throw ex; 
+            }
         }
     }
 }

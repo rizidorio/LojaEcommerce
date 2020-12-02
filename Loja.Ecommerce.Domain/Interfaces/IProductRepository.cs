@@ -7,7 +7,7 @@ namespace Loja.Ecommerce.Domain.Interfaces
     public interface IProductRepository
     {
         Task<Product> Insert(Product product);
-        Task Update(Product product);
+        Task<Product> Update(Product product);
         Task Delete(string id);
         Task<IEnumerable<Product>> GetAll(int skip = 0, int limit = 20);
         Task<IEnumerable<Product>> GetByName(string name, int skip = 0, int limit = 0);

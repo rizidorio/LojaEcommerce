@@ -20,40 +20,51 @@ namespace Loja.Ecommerce.Services.Services
             _categoryRepository = categoryRepository;
         }     
 
-        public async Task<ProductModel> Insert(ProductModel product)
+        public async Task<ProductModel> Insert(ProductModel productModel)
         {
-            if (await _productRepository.HasExists(product.SKU.ToUpper()))
+            if (await _productRepository.HasExists(productModel.SKU.ToUpper()))
                 throw new Exception("Produto já cadastrado.");
 
-            var category = await _categoryRepository.GetByName(product.Category.ToUpper());
+            var category = await _categoryRepository.GetByName(productModel.Category.ToUpper());
 
-            //if (category == null)
-                //throw new Exception("Categoria inválida.");
-
-            var convertedProduct = new Product(null, product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
+            var convertedProduct = new Product(null, productModel.SKU, productModel.Name, productModel.Description, 
+                                               productModel.Brand, productModel.ImageUrl, category, productModel.Price);
 
             var result = await _productRepository.Insert(convertedProduct);
 
             if(result != null)
             {
-                product.Id = result.Id.ToString();
+                productModel.Id = result.Id.ToString();   
             }
-
-            return product;
+            return productModel;
         }        
 
-        public async Task Update(ProductModel product)
+        public async Task<ProductModel> Update(ProductModel productModel)
         {
-            var queriedProduct = await _productRepository.GetById(product.Id);
+            var queriedProduct = await _productRepository.GetById(productModel.Id);
 
             if (queriedProduct == null)
                 throw new Exception("Produto não encontrado.");
 
-            var category = await _categoryRepository.GetByName(product.Category.ToUpper());
+            var category = await _categoryRepository.GetByName(productModel.Category.ToUpper());
 
-            var convertedProduct = new Product(Guid.Parse(product.Id), product.SKU, product.Name, product.Description, product.Brand, product.ImageUrl, category, product.Price);
+            var convertedProduct = new Product(Guid.Parse(productModel.Id), productModel.SKU, productModel.Name, productModel.Description, 
+                                                productModel.Brand, productModel.ImageUrl, category, productModel.Price);
 
-            await _productRepository.Update(convertedProduct);
+            var result = await _productRepository.Update(convertedProduct);
+
+            if (result != null)
+            {
+                productModel.Id = result.Id.ToString();
+                productModel.SKU = result.SKU;
+                productModel.Name = result.Name;
+                productModel.Description = result.Description;
+                productModel.Brand = result.Brand;
+                productModel.ImageUrl = result.ImageUrl;
+                productModel.Price = result.Price;                
+            }
+
+            return productModel;
         }
 
         public async Task Delete(string id)
