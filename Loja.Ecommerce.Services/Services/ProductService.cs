@@ -69,10 +69,15 @@ namespace Loja.Ecommerce.Services.Services
 
         public async Task Delete(string id)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(id))
                 throw new Exception("O Id não pode ser em branco.");
 
-            await _productRepository.Delete(id);
+            var productExist = await _productRepository.GetById(id);
+
+            if (productExist != null)
+                await _productRepository.Delete(productExist);
+            else
+                throw new Exception("Categoria não encontrada");
         }
 
         public async Task<IEnumerable<ProductModel>> GetAll(int skip = 0, int limit = 20)

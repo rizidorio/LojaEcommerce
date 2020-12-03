@@ -8,7 +8,7 @@ namespace Loja.Ecommerce.Domain.Interfaces
     {
         Task<Category> Insert(Category category);
         Task<Category> Update(Category category);
-        Task Delete(string id);
+        Task<bool> Delete(Category category);
         Task<IEnumerable<Category>> GetAll(int skip = 0, int limit = 10);
         Task<Category> GetById(string id);
         Task<Category> GetByName(string name);

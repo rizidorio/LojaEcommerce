@@ -43,11 +43,12 @@ namespace Loja.Ecommerce.Infra.Repository
             }    
         }
 
-        public async Task Delete(string id)
+        public async Task<bool> Delete(Category category)
         {
             try
             {
-                await _context.Category.DeleteOneAsync(c => c.Id.Equals(id));
+                DeleteResult deleteResult = await _context.Category.DeleteOneAsync(c => c.Id.Equals(category.Id));
+                return deleteResult.IsAcknowledged;
             }
             catch (Exception ex)
             {

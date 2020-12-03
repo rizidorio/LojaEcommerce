@@ -23,7 +23,7 @@ namespace Loja.Ecommerce.Services.Services
             if (await _categoryRepository.HasExists(categoryModel.Name.ToUpper()))
                 throw new Exception("Categoria já cadastrada.");
 
-            var convertedCategory = new Category(Guid.Parse(categoryModel.Id), categoryModel.Name.ToUpper());
+            var convertedCategory = new Category(null, categoryModel.Name.ToUpper());
 
             var result = await _categoryRepository.Insert(convertedCategory);
 
@@ -57,10 +57,15 @@ namespace Loja.Ecommerce.Services.Services
 
         public async Task Delete(string id)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(id))
                 throw new Exception("O Id não pode ser em branco.");
 
-            await _categoryRepository.Delete(id);
+            var categoryExist = await _categoryRepository.GetById(id);
+
+            if (categoryExist != null)
+                await _categoryRepository.Delete(categoryExist);
+            else
+                throw new Exception("Categoria não encontrada");
         }
 
         public async Task<IEnumerable<CategoryModel>> GetAll(int skip = 0, int limit = 10)
