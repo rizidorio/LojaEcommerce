@@ -1,5 +1,5 @@
 # LojaEcommerce
-Projeto DDD com Asp.Net Core 3.1 - MongoDb
+Projeto DDD com .Net Core 3.1 - MongoDb
 
 Api para inclusão, edição, listagem e exclusão de produtos para um E-commerce.
 
